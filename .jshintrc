@@ -1,0 +1,12 @@
+{
+  "esversion": 11,
+  "browser": true,
+  "devel": true,
+  "globals": {
+    "tailwind": true,
+    "localStorage": true,
+    "document": true,
+    "window": true,
+    "fetch": true
+  }
+}

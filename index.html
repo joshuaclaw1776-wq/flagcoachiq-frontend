@@ -16,7 +16,7 @@
           }
         }
       }
-    }
+    };
   </script>
   <style>
     /* ============================================================
@@ -494,7 +494,7 @@
       <div class="grid grid-cols-2 gap-3 mb-4">
         <button onclick="showTab('playbook'); openPlayEditor()" class="card p-3 flex items-center gap-3 hover:border-[var(--green)] transition-all group">
           <div class="w-9 h-9 rounded-lg bg-[var(--green-dim)] flex items-center justify-center group-hover:bg-[rgba(0,200,83,0.12)]">
-            <i class="fa-solid fa-plus style="color: var(--green);"></i>
+            <i class="fa-solid fa-plus" style="color: var(--green);"></i>
           </div>
           <span class="text-sm font-medium text-[var(--text-primary)]">New Play</span>
         </button>
@@ -996,13 +996,13 @@
         <button onclick="setTool('arrow')" id="tool-arrow" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-[var(--bg-elevated)] hover:bg-[var(--bg-hover)] border border-[var(--border-bright)] transition-all">
           <i class="fa-solid fa-arrow-right mr-1"></i>Arrow
         </button>
-        <button onclick="clearCanvas()" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-[rgba(248,81,73,0.3)] text-[var(--red)]" style="background: rgba(248,81,73,0.08);" transition-all">
+        <button onclick="clearCanvas()" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-[rgba(248,81,73,0.3)] text-[var(--red)] transition-all" style="background: rgba(248,81,73,0.08);">
           <i class="fa-solid fa-trash mr-1"></i>Clear
         </button>
-        <button onclick="addOffensePlayer()" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-[rgba(0,200,83,0.3)] text-[var(--green)]" style="background: rgba(0,200,83,0.08);" transition-all">
+        <button onclick="addOffensePlayer()" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-[rgba(0,200,83,0.3)] text-[var(--green)] transition-all" style="background: rgba(0,200,83,0.08);">
           <i class="fa-solid fa-circle-plus mr-1"></i>+Offense
         </button>
-        <button onclick="addDefensePlayer()" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-[rgba(88,166,255,0.3)] text-[var(--blue)]" style="background: rgba(88,166,255,0.08);" transition-all">
+        <button onclick="addDefensePlayer()" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-[rgba(88,166,255,0.3)] text-[var(--blue)] transition-all" style="background: rgba(88,166,255,0.08);">
           <i class="fa-solid fa-circle-plus mr-1"></i>+Defense
         </button>
       </div>
@@ -1901,6 +1901,8 @@ function renderDashboard() {
   const plays = store.get('plays', []);
   const customDrills = store.get('customDrills', []);
   const totalDrills = drillLibrary.length + customDrills.length;
+  const todayStr = now.toISOString().split('T')[0];
+  const practices = store.get('practices', []);
   const upcomingPractices = practices.filter(p => p.date >= todayStr).length;
   const stripEl = document.getElementById('dashStatsStrip');
   if (stripEl) {
@@ -1918,8 +1920,6 @@ function renderDashboard() {
   }
 
   // Next event
-  const practices = store.get('practices', []);
-  const todayStr = now.toISOString().split('T')[0];
   const upcoming = practices.filter(p => p.date >= todayStr).sort((a,b) => a.date.localeCompare(b.date));
   const nextEventEl = document.getElementById('nextEventContent');
   if (upcoming.length > 0) {
@@ -3892,7 +3892,7 @@ function saveDrillVideoUrl() {
         <!-- Preview -->
         <div id="aiImportPreview" class="hidden mt-3">
           <div class="relative rounded-xl overflow-hidden border border-[var(--border-bright)]">
-            <img id="aiImportPreviewImg" src="" alt="Preview" class="w-full max-h-48 object-contain bg-[var(--bg-elevated)]" />
+            <img id="aiImportPreviewImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Preview" class="w-full max-h-48 object-contain bg-[var(--bg-elevated)]" />
             <div class="absolute top-2 right-2">
               <button onclick="clearAIImportFile()" class="bg-[var(--bg-surface)] bg-opacity-80 text-[var(--text-secondary)] hover:text-white rounded-full w-6 h-6 flex items-center justify-center text-xs transition-colors">
                 <i class="fa-solid fa-xmark"></i>
@@ -4261,7 +4261,7 @@ function populateCanvasFromAI(playData) {
         <iframe
           id="drillVideoFrame"
           class="absolute inset-0 w-full h-full"
-          src=""
+          src="about:blank"
           title="Drill Reference Video"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
